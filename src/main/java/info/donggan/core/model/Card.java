@@ -28,4 +28,9 @@ public class Card implements Comparable<Card> {
   public int compareTo(Card in) {
     return this.value.ordinal() - in.getValue().ordinal();
   }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value) + String.valueOf(suit);
+  }
 }
