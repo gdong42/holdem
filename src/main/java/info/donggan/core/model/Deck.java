@@ -1,5 +1,8 @@
 package info.donggan.core.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -7,6 +10,8 @@ import java.util.LinkedList;
  * @author gdong
  */
 public class Deck {
+
+  private static final Logger logger = LoggerFactory.getLogger(Deck.class);
 
   private LinkedList<Card> cards;
 
@@ -38,5 +43,6 @@ public class Deck {
 
   public void burnCard() {
     cards.removeFirst();
+    logger.info("1 card burnt..");
   }
 }

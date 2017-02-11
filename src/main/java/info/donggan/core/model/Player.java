@@ -1,5 +1,8 @@
 package info.donggan.core.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,8 @@ import java.util.List;
  * @author gdong
  */
 public class Player {
+
+  private static final Logger logger = LoggerFactory.getLogger(Player.class);
 
   private String name;
 
@@ -30,5 +35,11 @@ public class Player {
 
   public void addHand(Card card) {
     this.hand.add(card);
+    logger.info(" ==== Player [{}] got 1 card", this.name);
+  }
+
+  @Override
+  public String toString() {
+    return name + ": " + hand;
   }
 }

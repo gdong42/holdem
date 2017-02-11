@@ -15,39 +15,59 @@ import org.springframework.stereotype.Component;
 public class GameCommands implements CommandMarker {
 
   @Autowired
-  private PlayerPromptProvider playerPromptProvider;
-
-  @CliAvailabilityIndicator({ "hello world" })
-  public boolean helloworld() {
-    return true;
-  }
+  private PlayerSession playerSession;
 
   @CliAvailabilityIndicator({ "set" })
   public boolean isSetAvailable() {
     return true;
   }
 
+  @CliAvailabilityIndicator({ "start" })
+  public boolean isStartAvailable() {
+    return true;
+  }
+
+  @CliAvailabilityIndicator({ "add bot" })
+  public boolean isAddBotAvailable() {
+    return true;
+  }
+
+  /**
+   * configuration command
+   *
+   * @param name name to be customized
+   * @return success message
+   */
   @CliCommand(value = "set", help = "Config settings")
   public String setName(
-      @CliOption(key = {
-          "name" }, mandatory = false, unspecifiedDefaultValue = "player", help = "Set your name")
+      @CliOption(key = { "name" }, mandatory = false,
+          unspecifiedDefaultValue = "player", help = "Set your name")
       final String name
   ) {
     if (!StringUtils.isEmpty(name)) {
-      this.playerPromptProvider.setName(name);
+      this.playerSession.setName(name);
     }
     return "OK, name set to " + name;
   }
 
-  @CliCommand(value = "hello world", help = "Echo hello world")
-  public String helloworld(
+  /**
+   * Adds a bot player
+   *
+   * @param name the name of the bot
+   */
+  @CliCommand(value = "add bot", help = "Add a bot with given name")
+  public String addBot(
       @CliOption(key = {
-          "message" }, mandatory = false, help = "the hello world message")
-      final String message,
+          "name" }, mandatory = true, help = "the name of the bot") String name) {
+    this.playerSession.addBot(name);
+    return "Bot " + name + " added.";
+  }
 
-      @CliOption(key = {
-          "location" }, mandatory = false, help = "your location", specifiedDefaultValue = "At work")
-      final String location) {
-    return "Hello world: " + message + ", greetings from " + location;
+  /**
+   * starts a new game
+   */
+  @CliCommand(value = "start", help = "Start the game")
+  public void start() {
+    this.playerSession.play();
   }
 }
