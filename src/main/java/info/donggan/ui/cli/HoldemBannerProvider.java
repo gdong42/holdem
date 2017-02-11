@@ -28,7 +28,7 @@ public class HoldemBannerProvider implements BannerProvider {
 
   @Override
   public String getWelcomeMessage() {
-    return "Welcome! Good luck";
+    return "Welcome! Good luck. Type `help` to print help message";
   }
 
   @Override
