@@ -7,10 +7,10 @@ package info.donggan.core.model;
  */
 public enum Suit {
 
-  SPADES("♠"),
-  HEARTS("♥"),
-  DIAMONDS("♦"),
-  CLUBS("♣");
+  SPADES(" ♠️ ️"),
+  HEARTS(" ♥️ ️"),
+  DIAMONDS(" ♦️️ ️"),
+  CLUBS(" ♣️ ️");
 
   private String name;
 
