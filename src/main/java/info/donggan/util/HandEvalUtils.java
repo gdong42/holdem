@@ -1,7 +1,11 @@
 package info.donggan.util;
 
 import info.donggan.core.model.Card;
+import info.donggan.core.model.HandEvalResult;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +16,22 @@ import java.util.List;
  */
 public class HandEvalUtils {
 
-  public static List<Card> eval(List<Card> cards) {
+  public static HandEvalResult eval(Collection<Card> hand,
+      Collection<Card> communityCards) {
+    List<Card> input = new ArrayList<>();
+    input.addAll(hand);
+    input.addAll(communityCards);
 
+    return eval(input);
+  }
+
+  public static HandEvalResult eval(Collection<Card> input) {
+    HandEvalResult result = new HandEvalResult();
+    result.setPatternRank(HandEvalResult.PatternRank.HIGH_CARD);
+    result.setScore(30000);
+    // TODO to be implemented
+
+//    Collections.sort(input);
+    return result;
   }
 }
