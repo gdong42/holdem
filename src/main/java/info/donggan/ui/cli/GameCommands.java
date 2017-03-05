@@ -32,6 +32,11 @@ public class GameCommands implements CommandMarker {
     return true;
   }
 
+  @CliAvailabilityIndicator({ "ls" })
+  public boolean isLsAvailable() {
+    return true;
+  }
+
   /**
    * configuration command
    *
@@ -69,5 +74,10 @@ public class GameCommands implements CommandMarker {
   @CliCommand(value = "start", help = "Start the game")
   public void start() {
     this.playerSession.play();
+  }
+
+  @CliCommand(value = "ls", help = "list the players")
+  public String ls() {
+    return this.playerSession.printPlayers();
   }
 }
