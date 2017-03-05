@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -60,7 +61,7 @@ public class Game {
     if (players.size() >= MAX_PLAYER_COUNT) {
       throw new IllegalStateException("Too many players");
     }
-    logger.info(" ==== GAME STARTED ==== \n" +
+    logger.info("\n ==== GAME STARTED ==== \n" +
         "  Players: {}", players);
 
     this.deck.shuffle();
@@ -68,6 +69,16 @@ public class Game {
     deal();
 
     determine();
+
+    end();
+  }
+
+  public void end() {
+    for (Player player : players) {
+      player.clearHand();
+    }
+    communityCards.clear();
+    logger.info("\n ==== GAME ENDED ==== \n");
   }
 
   private void determine() {
@@ -75,8 +86,9 @@ public class Game {
     logger.info("Hands: {}", players);
 
     // TODO evaluation
-    for (Player player: players) {
-      HandEvalResult result = HandEvalUtils.eval(player.getHand(), this.communityCards);
+    for (Player player : players) {
+      HandEvalResult result = HandEvalUtils
+          .eval(player.getHand(), this.communityCards);
       logger.info("\n Player: " + player + "\n Score: " + result.getScore());
     }
     logger.info("Winner is [{}]", "");
@@ -89,11 +101,11 @@ public class Game {
     // TODO betting logic..
 
     // first card
-    for (Player player: players) {
+    for (Player player : players) {
       player.addHand(deck.dealCard());
     }
     // second card
-    for (Player player: players) {
+    for (Player player : players) {
       player.addHand(deck.dealCard());
     }
 
@@ -124,5 +136,14 @@ public class Game {
     // river bet
     logger.info(" ==== River betting... ");
 
+  }
+
+  /**
+   * gets the current players in this game
+   *
+   * @return players joined this game
+   */
+  public List<Player> getPlayers() {
+    return Collections.unmodifiableList(players);
   }
 }

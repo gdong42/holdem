@@ -38,6 +38,10 @@ public class Player {
     logger.info(" ==== Player [{}] got 1 card", this.name);
   }
 
+  public void clearHand() {
+    this.hand.clear();
+  }
+
   @Override
   public String toString() {
     return name + ": " + hand;

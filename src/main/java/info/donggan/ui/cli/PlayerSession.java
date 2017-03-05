@@ -56,4 +56,14 @@ public class PlayerSession implements PromptProvider {
     Player player = new Player(botName);
     game.join(player);
   }
+
+  /**
+   * returns current players as a String that is ready to print
+   * @return
+   */
+  public String printPlayers() {
+    StringBuilder sb = new StringBuilder();
+    game.getPlayers().forEach(p -> sb.append('\n').append(p).append('\n'));
+    return sb.toString();
+  }
 }
