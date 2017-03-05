@@ -2,7 +2,9 @@ package info.donggan.core;
 
 import info.donggan.core.model.Card;
 import info.donggan.core.model.Deck;
+import info.donggan.core.model.HandEvalResult;
 import info.donggan.core.model.Player;
+import info.donggan.util.HandEvalUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -73,6 +75,10 @@ public class Game {
     logger.info("Hands: {}", players);
 
     // TODO evaluation
+    for (Player player: players) {
+      HandEvalResult result = HandEvalUtils.eval(player.getHand(), this.communityCards);
+      logger.info("\n Player: " + player + "\n Score: " + result.getScore());
+    }
     logger.info("Winner is [{}]", "");
   }
 
